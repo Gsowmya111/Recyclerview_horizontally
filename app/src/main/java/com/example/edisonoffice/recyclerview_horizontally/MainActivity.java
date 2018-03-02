@@ -2,6 +2,7 @@ package com.example.edisonoffice.recyclerview_horizontally;
 
 import android.app.Activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +21,7 @@ public class MainActivity extends Activity  {
     private ArrayList<String> horizontalList,verticalList;
     private HorizontalAdapter horizontalAdapter;
   //  private  VerticalAdapter verticalAdapter;
-
+  int selectedPosition=-1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,9 +107,19 @@ public class MainActivity extends Activity  {
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
             holder.button.setText(horizontalList.get(position));
 
+            if(selectedPosition==position) {
+                holder.button.setBackgroundColor(Color.parseColor("#ffffff"));
+                holder.button.setTextColor(Color.RED);
+            }
+
+            else
+                holder.button.setBackgroundResource(R.color.colorAccent);
+
             holder.button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    selectedPosition=position;
+                    notifyDataSetChanged();
 
                     Toast.makeText(MainActivity.this,holder.button.getText().toString(),Toast.LENGTH_SHORT).show();
                 }
@@ -168,4 +179,6 @@ public class MainActivity extends Activity  {
             return verticalList.size();
         }
     }*/
+
+
 }
